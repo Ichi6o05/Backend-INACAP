@@ -1,0 +1,114 @@
+{% extends "coreapp/base.html" %} 
+    {% block changeMeta %}
+        <meta name="description" content="Página de contacto del sitio web">
+        <meta name="keywords" content="Contacto, correo">
+    {% endblock changeMeta %}
+    
+    {% block title %} Contacto - Mi Sitio Web {% endblock title %}
+    
+    {% block enlaceContacto %}
+        <a class="nav-link" href="">Contacto</a>
+    {% endblock enlaceContacto %}
+
+    {% block mainContent %}
+    <!-- Contact -->
+    <section id="contacto" class="contact-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold">Contacto</h2>
+                {% if origen == "cursos" %}
+                    <p class="text-muted">¿Interesado en algún taller? Contáctanos</p>
+                {% else %}
+                    <p class="text-muted">Estamos aquí para ayudarte</p>
+                {% endif %}
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow">
+                <div class="card-body">
+                    <form>
+                    {% if origen == "cursos" %}
+                        
+                    {% else %}
+                        
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            required
+                        />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            required
+                        />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input
+                            type="tel"
+                            class="form-control"
+                            id="telefono"
+                            required
+                        />
+                    </div>
+                    {% if origen == "cursos" %}
+                        <div class="mb-3">
+                            <label for="taller" class="form-label">Taller de interés</label>
+                            <select class="form-select" id="taller">
+                            <option value="">Selecciona un taller</option>
+                            <option value="web-dev">Desarrollo Web Full Stack</option>
+                            <option value="design">Diseño Gráfico Creativo</option>
+                            <option value="marketing">
+                                Marketing Digital Estratégico
+                            </option>
+                            <option value="ingles">Inglés para Negocios</option>
+                            <option value="mindfulness">
+                                Mindfulness y Gestión del Estrés
+                            </option>
+                            <option value="data-science">
+                                Ciencia de Datos con Python
+                            </option>
+                            </select>
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea
+                        class="form-control"
+                        id="mensaje"
+                        rows="4"
+                        placeholder="Cuéntanos sobre tus necesidades específicas..."
+                        required
+                        ></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane"></i> 
+                        {% if origen == "cursos" %}
+                            Enviar Solicitud
+                        {% else %}
+                            Enviar Mensaje
+                        {% endif %}
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    {% endblock mainContent %}
