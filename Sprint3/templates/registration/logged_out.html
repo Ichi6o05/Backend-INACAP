@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block mainContent %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 500px;">
+        <div class="alert alert-success text-center">
+            <h2>Logged out!</h2>
+            <a href="{% url 'login' %}" class="btn btn-primary mt-2">Click here to login again</a>
+        </div>
+    </div>
+</div>
+{% endblock mainContent %}

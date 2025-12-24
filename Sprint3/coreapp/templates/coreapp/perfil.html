@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block enlaceContacto %}
+    <a class="nav-link" href="{% url 'coreapp:contacto' %}">Contacto</a>
+{% endblock enlaceContacto %}
+
+{% block title %} Mi Perfil {% endblock %}
+
+{% block mainContent %}
+<div class="d-flex justify-content-center align-items-center py-5" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+        <div class="text-center">
+            <img 
+                src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'coreapp/images/profile.png' %}{% endif %}" 
+                alt="Avatar" 
+                class="rounded-circle profile-img"
+            >
+            <h4 class="fw-bold">{% if user.username %} {{ user.username }} {% else %} Nobody {% endif %}</h4>
+            <p class="text-muted">{% if user.email %} {{ user.email }} {% else %} SinCorreo {% endif %}</p>
+        </div>
+        <hr>
+        <div>
+            <p><strong>Nombre:</strong> {% if user.first_name %} {{ user.first_name }} {% else %} Noname {% endif %}</p>
+            <p><strong>Apellido:</strong> {% if user.last_name %} {{ user.last_name }} {% else %} NoLname {% endif %}</p>
+            <p><strong>Último acceso:</strong> {{ user.last_login|date:"d/m/Y H:i" }}</p>
+        </div>
+        <div class="d-grid gap-2 mt-3">
+            <a href="{% url 'password_change' %}" class="btn btn-outline-primary">Cambiar contraseña</a>
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock mainContent %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block enlaceContacto %}
+    <a class="nav-link" href="{% url 'coreapp:contacto' %}">Contacto</a>
+{% endblock enlaceContacto %}
+
+{% block title %} Login - Mi Sitio Web {% endblock title %}
+
+{% block mainContent %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Iniciar Sesión</h3>
+
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% include "_login_form.html" %}
+        
+    </div>
+</div>
+{% endblock mainContent %}

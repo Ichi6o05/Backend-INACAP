@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load form_tags %}
+
+{% block content %}
+<div class="cshadow p-3 mb-5 bg-white rounded w-50">
+    <div class="card shadow p-4" style="min-width: 400px;">
+        <h2 class="text-center mb-4">Crear cuenta</h2>
+
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label">Usuario</label>
+                {{ form.username|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.password1.id_for_label }}" class="form-label">Contraseña</label>
+                {{ form.password1|add_class:"form-control" }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.password2.id_for_label }}" class="form-label">Confirmar contraseña</label>
+                {{ form.password2|add_class:"form-control" }}
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Registrarse</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            ¿Ya tienes cuenta? <a href="{% url 'login' %}">Iniciar sesión</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %} 
+    {% block changeMeta %}
+        <meta name="description" content="Página de contacto del sitio web">
+        <meta name="keywords" content="Contacto, correo">
+    {% endblock changeMeta %}
+    
+    {% block title %} Contacto - Mi Sitio Web {% endblock title %}
+    
+    {% block enlaceContacto %}
+        <a class="nav-link {% if request.resolver_match.url_name == 'contacto' %}active{% endif %}" href="">Contacto</a>
+    {% endblock enlaceContacto %}
+
+    {% block mainContent %}
+    <!-- Contact -->
+    <section id="contacto" class="contact-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold">Contacto</h2>
+                {% if origen == "cursos" %}
+                    <p class="text-muted">¿Interesado en algún taller? Contáctanos</p>
+                {% else %}
+                    <p class="text-muted">Estamos aquí para ayudarte</p>
+                {% endif %}
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow">
+                <div class="card-body">
+                    
+                    {% if messages %}
+                    <div>
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="origen" value="{{ origen }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre completo</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            name="nombre"
+                            required
+                        />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            required
+                        />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input
+                            type="tel"
+                            class="form-control"
+                            id="telefono"
+                            name="telefono"
+                            required
+                        />
+                    </div>
+                    {% if origen == "cursos" %}
+                        <div class="mb-3">
+                            <label for="curso" class="form-label">Curso de interés</label>
+                            <select name="curso" class="form-select">
+                                <option value="">Seleccione un Curso</option>
+                                {% for curso in cursos_disponibles %}
+                                    <option value="{{ curso.id }}">{{ curso.titulo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea
+                        class="form-control"
+                        id="mensaje"
+                        name="mensaje"
+                        rows="4"
+                        placeholder="Cuéntanos sobre tus necesidades específicas..."
+                        required
+                        ></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cc_ami" class="form-label">{{ form.cc_ami.label }}</label>
+                        {{ form.cc_ami }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane"></i> 
+                        {% if origen == "cursos" %}
+                            Enviar Solicitud
+                        {% else %}
+                            Enviar Mensaje
+                        {% endif %}
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    {% endblock mainContent %}
