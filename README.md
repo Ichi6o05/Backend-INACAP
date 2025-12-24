@@ -1,6 +1,7 @@
 # Back-end
 
 Proyectos de asignatura Back-end de INACAP sede Santiago Centro
+* Credenciales: **root** **1234**
 
 ---
 
@@ -68,7 +69,7 @@ En el tercer Sprint se solicitó realizar lo siguiente:
 1. Clona el repositorio.
 2. Crea un entorno virtual (opcional): `python -m venv venv`
 3. Instala las dependencias (debo colocarlo a futuro): `pip install -r requirements.txt`
-4. Ejecuta las migraciones: `python manage.py migrate`
+4. Ejecuta las migraciones: `python manage.py migrate` o `python -m manage migrate`
 5. Efectua las migraciones: `Python manage.py makemigrations`
 6. Inicia el servidor: `python manage.py runserver`
 
