@@ -1,0 +1,100 @@
+{% extends "base.html" %} 
+
+{% block changeMeta %}
+<meta name="description" content="Catálogo de cursos y capacitaciones" />
+<meta name="keywords" content="capacitación, cursos, formación" />
+{% endblock changeMeta %} 
+
+{% block title %} Cursos - Mi Sitio Web {% endblock title %} 
+
+{% block enlaceContacto %}
+<a class="nav-link" href="{% url 'coreapp:contacto' %}?origen=cursos">Contacto</a>
+{% endblock enlaceContacto %} 
+
+{% block mainContent %}
+<!-- Page Header -->
+<section class="page-header py-5 bg-primary text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="display-4 fw-bold">{{ titulo }}</h1>
+        <p class="lead">Capacitación de alta calidad con expertos en el área</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filter Section -->
+<section class="filter-section py-4 bg-light">
+  <div class="container">
+    <form method="get" action="{% url 'coreapp:cursos' %}">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input
+              type="text"
+              class="form-control"
+              name="q"
+              value="{{ request.GET.q }}"
+              placeholder="Buscar cursos..." 
+              autofocus
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <select class="form-select" name="categoria" onchange="this.form.submit()">
+            <option value="">Todas las categorías</option>
+            <option value="Tecnología" {% if request.GET.categoria == "Tecnología" %}selected{% endif %}>Tecnología</option>
+            <option value="Arte y Diseño" {% if request.GET.categoria == "Arte y Diseño" %}selected{% endif %}>Arte y Diseño</option>
+            <option value="Negocios" {% if request.GET.categoria == "Negocios" %}selected{% endif %}>Negocios</option>
+            <option value="Idiomas" {% if request.GET.categoria == "Idiomas" %}selected{% endif %}>Idiomas</option>
+            <option value="Salud y Bienestar" {% if request.GET.categoria == "Salud y Bienestar" %}selected{% endif %}>Salud y Bienestar</option>
+           </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Lista Cursos -->
+<section class="workshops-section py-5">
+  <div class="container">
+    <div class="row g-4" id="workshopsGrid">
+      {% for c in cursos %}
+      <div class="col-lg-4 col-md-6 workshop-item" data-category="{{ c.categoria|lower }}">
+        <div class="card h-100 shadow-sm">
+          {% if c.imagen %}
+          <img src="{{ c.imagen.url }}" alt="{{ c.titulo }}" />
+          {% else %}
+          <img src="https://via.placeholder.com/400x250?text=Sin+imagen" alt="Sin imagen"/>
+          {% endif %}
+          <div class="card-body">
+            <span class="badge bg-primary mb-2">{{ c.categoria }}</span>
+            <h5 class="card-title">{{ c.titulo }}</h5>
+            <p class="card-text">{{ c.descripcion }}</p>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-clock text-muted"></i> {{ c.duracion }}</li>
+              <li>
+                <i class="fas fa-calendar text-muted"></i> Inicio: {{c.fecha_inicio }}
+              </li>
+              <li><i class="fas fa-users text-muted"></i> {{ c.cupo }}</li>
+            </ul>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0 text-primary">${{ c.precio }}</span>
+              <a href="{% url 'coreapp:contacto' %}?origen=cursos" class="btn btn-outline-primary">
+                Más Info
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No hay cursos disponibles.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock mainContent %}

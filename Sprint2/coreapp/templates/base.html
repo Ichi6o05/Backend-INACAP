@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block changeMeta  %}
+    <meta name="description" content="Página principal del sitio web">
+    <meta name="keywords" content="inicio, bienvenida, principal">
+    {% endblock changeMeta  %}
+    <meta name="author" content="Diego Acevedo">
+    
+    <title>
+        {% block title %} Inicio - Mi Sitio Web {% endblock title %}
+    </title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'coreapp/icons/css/all.min.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'coreapp/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'coreapp/icons/favicon.ico' %}">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        .table-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .table-responsive {
+            flex: 1;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'coreapp:index' %}">
+                <i class="fas fa-home"></i> Mi Sitio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'coreapp:index' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'cursos' %}active{% endif %}" href="{% url 'coreapp:cursos' %}">Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        {% block enlaceContacto %}{% endblock enlaceContacto %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'viewClientes' %}active{% endif %}" href="{% url 'coreapp:viewClientes' %}">Clientes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block mainContent %}{% endblock mainContent %}
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+           
+            <div class="card-footer text-center" >
+                <h5 class="card-title text-center">Información de Contacto</h5>
+                <p class="mb-1 pt-2"><i class="fas fa-map-marker-alt text-primary"></i> Dirección: Calle Principal 123, Ciudad</p>
+                <p class="mb-1"><i class="fas fa-phone text-primary"></i> Teléfono: (123) 456-7890</p>
+                <p class="mb-0"><i class="fas fa-envelope text-primary"></i> Email: info@misitio.com</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 Mi Sitio Web.</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="{% static 'coreapp/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
